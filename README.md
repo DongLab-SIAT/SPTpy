@@ -1,181 +1,223 @@
-# SPTpy
+# **SPTpy: An Integrated Python Toolkit for Live-Cell Single-Particle Tracking Analysis**
 
-SPTpy is a graphical user interface application for Single Particle Tracking (SPT) analysis, particularly suitable for biological imaging and particle analysis.
+*A unified and cross-platform Python framework for SPT data processing, nuclear segmentation, trajectory tracking, and biophysical modeling.*  
 
-## Features
 
-- **Image Loading and Visualization**: Support for loading and visualizing TIFF image stacks and super stacks
-- **Particle Localization**: Deep learning-based particle detection and localization
-- **Trajectory Tracking**: Automatic tracking of particle motion trajectories
-- **Data Analysis**: MSD analysis, diffusion coefficient calculation, radius analysis, etc.
-- **Batch Processing**: Support for automated batch data processing workflows
+---
 
-## System Requirements
+## **1. Overview**
 
-- **Operating System**: Windows 10 or higher / Linux
-- **Python Version**: Python 3.10 or higher
-- **GPU**: Optional, supports CUDA acceleration (for deep learning models)
+SPTpy is an integrated and open-source Python toolkit designed for end-to-end analysis of live-cell single-particle tracking data.  
+Motivated by the operational fragmentation of existing SPT software, SPTpy consolidates essential analytical components—including image pre-processing,single-molecule localization, trajectory reconstruction, nuclear segmentation, kinetic modeling, confinement analysis, and motion-state classification—into a unified workflow.
 
-## Installation
+SPTpy enables robust quantification of transcription factor dynamics, supports cross-platform operation, and is suitable for large-scale SPT datasets commonly generated in modern single-molecule imaging experiments.
 
-### 1. Clone the Repository
+
+## **2. Key Features**
+
+### **Complete SPT Workflow Integration**
+
+- TIFF image stack loading and visualization  
+- Per-frame normalization, γ-correction, and optional up-sampling  
+- GLRT-based localization with iterative deflation and sub-pixel refinement  
+- KNN-based trajectory linking with gap closing  
+- Parallel processing for high-throughput datasets
+
+### **Deep Learning–Based Nuclear Segmentation**
+
+- Multi-attention U-Net (MaU-Net) designed for SPT images  
+- Dual-stream encoder (Gray vs. Render + Scatter)  
+- Cross-stream attention fusion for high-accuracy nuclear masks  
+- Offline model training and GPU-accelerated inference
+
+### **Biophysical Analysis**
+
+- Spot-On kinetic modeling  
+- Radius of Confinement (RoC) estimation via constrained MSD fitting  
+- Motion-State Classification using spatial density labeling  
+- Supports analysis of TF dynamics, chromatin interactions, condensate transitions
+
+### **High Throughput & Reproducible**
+
+- Memory-mapped TIFF loading for efficient large data handling  
+- Vectorized and parallelized computation throughout  
+- Unified GUI ensuring reproducibility and consistency  
+- Script-level access for automated workflows
+
+### **User-Friendly GUI**
+
+- Integrated graphical interface for end-to-end analysis  
+- Interactive tools for inspecting images, localizations, trajectories  
+- Batch-processing support for multiple files and parameters
+
+---
+
+## **3. System Requirements**
+
+| Category             | Requirement                                       |
+| :------------------- | :------------------------------------------------ |
+| **Operating System** | Windows 10 or higher; Linux                       |
+| **Python Version**   | Python ≥ 3.10                                     |
+| **CPU**              | Multi-core processor recommended                  |
+| **Memory**           | ≥ 16 GB (for large TIFF stacks)                   |
+| **GPU (optional)**   | NVIDIA CUDA-enabled GPU (recommended for MaU-Net) |
+
+
+---
+
+## **4. Installation**
+
+### **1. Clone the repository**
 
 ```bash
 git clone https://github.com/DongLab-SIAT/SPTpy.git
-cd SPTpy
 ```
 
-### 2. Create Virtual Environment (Recommended)
+### **2. Create a virtual environment (recommended)**
 
 ```bash
 python -m venv venv
+```
 
-# Windows
+**Windows**
+
+```bash
 venv\Scripts\activate
+```
 
-# Linux/macOS
+**Linux/macOS**
+
+```bash
 source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### **3. Install Python dependencies**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Install Core Algorithm Package
+### **4. Install core algorithm package**
 
 ```bash
 cd SPTpy
 pip install -e .
 ```
 
-## Usage
+---
 
-### Launching the Application
+## **5. Usage**
 
-Run the main program directly:
+SPTpy is primarily used through its graphical interface.  
+Launch the GUI with:
 
 ```bash
 python SPTpy/SPTpy.py
 ```
 
-Or double-click the `SPTpy/SPTpy.py` file (if Python file association is configured).
-
-### Menu Functions
-
-#### Load Menu
-
-- **Imagestack**: Load TIFF image stack files (`.tif` format)
-  - Supports multi-frame TIFF files
-  - Images can be viewed and browsed in the image window after loading
-
-- **Batch Localization**: Batch localization function
-  - Used for batch processing of particle localization for multiple files
-
-- **Particle Data** → **SPTpy**: Load SPTpy particle localization data
-  - Supports text file format (`.txt`)
-  - File format: Tab-separated, first row is header
-  - Localization results can be visualized in the image window after loading
-
-- **Tracking Data**: Load trajectory tracking data
-  - Supports text file format (`.txt`)
-  - Data format: `x_coordinate y_coordinate frame_number trajectory_id` (tab-separated)
-  - Automatically filters trajectories with length less than 5
-
-#### Analysis Menu
-
-- **spot on**: Spot-On analysis tool
-  - Select trajectory file (`.txt` format)
-  - Set parameters: frame interval, pixel size, etc.
-  - Perform diffusion coefficient analysis and visualization
-
-- **RoC**: Radius analysis (Radius of Confinement)
-  - Opens radius analysis parameter settings window
-  - Calculates particle confinement radius
-
-- **Motion trajectory**: Motion trajectory analysis
-  - Select trajectory table file (`.txt` format)
-  - Analyzes trajectory motion patterns, including:
-    - Free trajectory
-    - Condensate trajectory
-    - Condensate to free
-    - Free to condensate
-
-#### Extras Menu
-
-- **Credits**: Display author and copyright information
-- **Changelog**: Display version update log
-- **Help**: Help function (currently disabled)
-
-### Basic Workflow
-
-1. **Load Image Data**
-   - Click `Load` → `Imagestack` to select TIFF image file
-   - Image will be displayed in the main window
-
-2. **Load Particle Localization Data**
-   - Click `Load` → `Particle Data` → `SLIMfast`
-   - Select localization text file
-   - Localization points will be overlaid on the image
-
-3. **Load Trajectory Data**
-   - Click `Load` → `Tracking Data`
-   - Select trajectory tracking text file
-   - Trajectories will be visualized in the image window
-
-4. **Perform Data Analysis**
-   - Click `Analysis` → `spot on` for diffusion analysis
-   - Click `Analysis` → `RoC` for radius analysis
-   - Click `Analysis` → `Motion trajectory` for motion pattern analysis
+---
 
 
-## Project Structure
+
+## **6. Project Structure**
 
 ```
-SPTpy_v3/
-├── SPTpy/
-│   ├── SPTpy.py                    # Main program entry
-│   ├── unet_attention_model.py     # UNet attention model
-│   ├── automated_spt_processor.py  # Automated SPT processing module
-│   ├── rc_rg_combined_auto.py      # RC/RG analysis module
-│   ├── track_processor.py          # Trajectory processing module
-│   ├── msd_analyzer.py             # MSD analysis module
-│   ├── radius_calculator.py        # Radius calculation module
-│   ├── spoton_core/                # Core algorithm package
-│   ├── MonteCarloParams_1_gap.mat  # Monte Carlo parameter file
-│   └── setup.py                    # Installation configuration
-├── requirements.txt                # Python dependencies
-├── .gitignore                      # Git ignore file
-└── README.md                       # This file
+SPTpy/
+├── spoton_core/                     # Spot-On kinetic modeling engine
+│   ├── __init__.py
+│   ├── fastSPT_plot.py              # Visualization utilities for Spot-On analysis
+│   ├── fastSPT_tools.py             # Helper functions for diffusion fitting
+│   ├── fastspt.py                   # Core Spot-On implementation
+│   ├── format4DN.py                 # 4DN-compliant trajectory formatting
+│   ├── readers.py                   # File readers for SPT data formats
+│   ├── version.py                   # Version info for spoton_core
+│   └── writers.py                   # Output writers for processed data
+│
+├── SPTpy.py                         # GUI entry point
+├── automated_spt_processor.py       # Automated batch SPT processing workflow
+├── msd_analyzer.py                  # MSD computation and diffusion coefficient analysis
+├── radius_calculator.py             # Radius of Confinement (RoC) analysis
+├── rc_rg_combined_auto.py           # Combined RoC/RG analysis module
+├── setup.py                         # Package installation configuration
+├── track_processor.py               # Single-particle trajectory linking and filtering
+├── unet_attention_model.py          # Multi-attention U-Net model for nuclear segmentation
+│
+├── .gitignore                       # Git ignore rules
+├── LICENSE                          # License file
+├── README.md                        # Project documentation
+└── requirements.txt                 # Python dependency list
 ```
 
-## Dependencies
 
-Main dependencies include:
-- PyTorch (Deep learning framework)
-- NumPy, SciPy (Numerical computing)
-- Matplotlib (Visualization)
-- Tkinter (GUI interface)
-- scikit-image, scikit-learn (Image processing and machine learning)
-- tifffile, imageio (Image I/O)
-- pandas (Data processing)
-- lmfit (Fitting analysis)
-- numba (Performance optimization)
+---
 
-See `requirements.txt` for the complete dependency list.
+---
+
+## **7. Example Datasets**
+
+### **Zenodo Archive**
+
+The datasets used in the manuscript have been deposited on Zenodo:
+
+**📦 Zenodo DOI:** https://doi.org/10.5281/zenodo.17783061
+
+To comply with size limitations and data-sharing constraints, **raw TIFF image stacks are not included** in this archive.  
+Instead, the Zenodo dataset contains the processed results and intermediate files required to fully reproduce our analyses.
+
+The archive includes the following three components:
+
+#### **1. CREB SPT Dataset**
+
+- Single-molecule localization results  
+- Trajectory files used for diffusion, RoC, and motion-state analysis  
+- Rendered localization density maps  
 
 
-## Author
+#### **2. Cohesin-Loss Dataset**
 
-- **Liao Shasha**
-- Institute: SIAT (Shenzhen Institute of Advanced Technology)
-- Location: Shenzhen, China
+- Localization and trajectory files for histones (H2B, H2A.Z)  
+- Transcriptional regulators (OCT4, BRD4, MED1, MED6, TBP)  
+- Processed data used in the manuscript to analyze diffusion behavior, confinement, and condensate transitions  
 
-## License
+#### **3. MaU-Net Training and Validation Dataset**
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- Training set used for MaU-Net (Gray / Render / Scatter inputs with corresponding nuclear masks)  
+- Validation set used for model selection and performance evaluation  
+- Pre-processed grayscale image frames and their associated Render / Scatter channels  
+- Manually annotated nuclear masks (DAPI-based ground truth)  
+- Best-performing MaU-Net model checkpoint selected based on validation loss
 
-## Issues
 
-If you encounter any problems or have suggestions, please submit them via GitHub Issues.
+These datasets contain all information necessary to reproduce the analyses presented in the manuscript.
+
+---
+
+## **8. Citation**
+
+If you use SPTpy for your research, please cite:
+
+```bibtex
+@article{Liao2025SPTpy,
+  title={SPTpy: An Integrated Python Toolkit for One-Stop Analysis of Live-Cell Single-Particle Tracking Data},
+  author={Liao, Shasha and Yang, Xin and Wang, Jinhong and Zhu, Hongni and Song, Yi and Liu, Yajie and Dong, Peng},
+  journal={Bioinformatics},
+  year={2025},
+}
+```
+
+---
+
+## **9. License**
+
+Distributed under the **MIT License**.
+
+---
+
+## **10. Contact**
+
+For questions, data requests, or collaboration:
+
+**Peng Dong**  
+Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences  
+📧 p.dong@siat.ac.cn
+
