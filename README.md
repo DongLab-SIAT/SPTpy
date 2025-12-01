@@ -21,8 +21,8 @@ SPTpy is a graphical user interface application for Single Particle Tracking (SP
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/DongLab-SIAT/SPTpy.git
+cd SPTpy
 ```
 
 ### 2. Create Virtual Environment (Recommended)
@@ -115,8 +115,8 @@ Or double-click the `SPTpy/SPTpy.py` file (if Python file association is configu
    - Image will be displayed in the main window
 
 2. **Load Particle Localization Data**
-   - Click `Load` → `Particle Data` → `SPTpy`
-   - Select localization result text file
+   - Click `Load` → `Particle Data` → `SLIMfast`
+   - Select localization text file
    - Localization points will be overlaid on the image
 
 3. **Load Trajectory Data**
@@ -129,22 +129,6 @@ Or double-click the `SPTpy/SPTpy.py` file (if Python file association is configu
    - Click `Analysis` → `RoC` for radius analysis
    - Click `Analysis` → `Motion trajectory` for motion pattern analysis
 
-### Data File Formats
-
-#### Particle Localization Data (SPTpy Format)
-- File format: Text file (`.txt`), tab-separated
-- First row: Header row (will be skipped)
-- Data columns: Contains x coordinate, y coordinate, frame number, etc.
-
-#### Trajectory Tracking Data
-- File format: Text file (`.txt`), tab-separated
-- Data format: `x_coordinate \t y_coordinate \t frame_number \t trajectory_id`
-- Example:
-  ```
-  100.5    200.3    1    1
-  101.2    201.1    2    1
-  102.0    202.5    3    1
-  ```
 
 ## Project Structure
 
@@ -181,13 +165,6 @@ Main dependencies include:
 
 See `requirements.txt` for the complete dependency list.
 
-## Citation
-
-If you use SPTpy in your research, please cite:
-
-```
-[Citation information to be added]
-```
 
 ## Author
 
