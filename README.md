@@ -1,4 +1,4 @@
-# **SPTpy: An Integrated Python Toolkit for Live-Cell Single-Particle Tracking Analysis**
+# **SPTpy: An Integrated Python Toolkit for One-Stop Analysis of Live-Cell Single-Particle Tracking Data**
 
 *A unified and cross-platform Python framework for SPT data processing, nuclear segmentation, trajectory tracking, and biophysical modeling.*  
 
